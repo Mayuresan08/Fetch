@@ -34,19 +34,14 @@ img{
 
     <script>
 
-let asiaRegion=fetch('https://restcountries.eu/rest/v2/region/asia')
-.then(data=>data.json())
-// .then(data=> console.log(data))
 
 
 let spanishRegion=fetch("https://restcountries.eu/rest/v2/lang/es")
 .then(data=>data.json())
+.then(data=> data.filter((country)=>country.region=="Europe"))
+.then(data=>createFlag(data))
 // .then(data=> console.log(data))
 
-Promise.all([asiaRegion,spanishRegion])
-.then(data=>[...data[0],...data[1]])
-.then(data=>data.filter((country)=>country.region=="Europe"))
-.then(data=>createFlag(data))
 
     div=document.createElement("div");
   div.className='outer';

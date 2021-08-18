@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.outer{
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+}
+.container{
+  height:auto-flow;
+  max-width:10rem;
+    line-height:1.2;
+    border:2px solid white;
+    background-color:white;
+  box-shadow: 10px 10px  10px 0 grey;
+  overflow:hidden
+}
+img{
+  height:100px;
+  width:10rem;
+  border-radius:7px 7px 0 0 ;
+
+  
+}
+</style>
+<body>
+    
+
+    <script>
+
+let asiaRegion=fetch('https://restcountries.eu/rest/v2/region/asia')
+.then(data=>data.json())
+// .then(data=> console.log(data))
+
+
+let europeRegion=fetch("https://restcountries.eu/rest/v2/region/europe")
+.then(data=>data.json())
+// .then(data=> console.log(data))
+
+Promise.all([asiaRegion,europeRegion])
+.then(data=>[...data[0],...data[1]])
+.then(data=>createFlag(data))
+
+    div=document.createElement("div");
+  div.className='outer';
+  document.body.append(div)
+  
+function createFlag(a)
+{
+a.forEach(b =>
+  {
+div.innerHTML +=`
+<div class=container>
+<img src=${b.flag}>
+  <h3>${b.name}</h3>
+  <p><b>Region</b>:${b.region}</p>
+  <p><b>Capital</b>:${b.capital}</p>
+  <p><b>Population</b>:${b.population}</p>
+  </div>`
+   })
+}
+
+
+
+
+
+    </script>
+</body>
+</html>
